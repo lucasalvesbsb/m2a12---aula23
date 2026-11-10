@@ -14,12 +14,15 @@ try:
         print('Conectado!')
         
         cursor = conexao.cursor()
-        
-        cursor.execute('SELECT * FROM alunos LIMIT 5')
 
-        resultados = cursor.fetchall()
-        for linha in resultados:
-            print(linha)
+        sql = 'INSERT INTO alunos (nome, cpf, data_nascimento, email, telefone, data_matricula, id_curso) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+        valores = ('Joana Dark', '11122253344', '2005-04-21', 'joana@email.com', '219999977712', '2026-02/07', '1')
+        
+        cursor.execute(sql, valores)
+
+        conexao.commit()
+
+        print(f'Linha inserida. ID gerado: {cursor.lastrowid}')
 
 
 except Error as e:
